@@ -1,0 +1,25 @@
+.about-container {
+  padding: 20px;
+}
+
+  .about-container h2 {
+    margin-bottom: 10px;
+  }
+
+  .about-container p {
+    margin-bottom: 20px;
+  }
+
+  .about-container button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+    .about-container button:hover {
+      background-color: #0056b3;
+    }

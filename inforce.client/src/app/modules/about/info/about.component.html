@@ -1,0 +1,5 @@
+<div class="about-container">
+  <h2>About</h2>
+  <p>{{ description }}</p>
+  <button *ngIf="isAdmin" (click)="editDescription()">Edit</button>
+</div>

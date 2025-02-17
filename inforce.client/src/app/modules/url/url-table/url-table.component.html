@@ -1,0 +1,26 @@
+<div class="url-container">
+  <h2>Link Shorting</h2>
+  <form (submit)="shortenUrl()">
+    <input type="text" placeholder="Enter URL" [(ngModel)]="newUrl" name="newUrl" required />
+    <button type="submit">Short up</button>
+  </form>
+
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Original URL</th>
+        <th>Short Link</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let url of urls">
+        <td>{{ url.originalUrl }}</td>
+        <td><a [routerLink]="['/url', url.shortCode]">{{ url.shortCode }}</a></td>
+        <td><button (click)="deleteUrl(url.shortCode)">🗑</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

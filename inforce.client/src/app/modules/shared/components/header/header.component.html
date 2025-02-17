@@ -1,0 +1,14 @@
+<header>
+
+    <div class="container">
+      <h1>URL Shortener</h1>
+      <nav>
+        <a routerLink="/urls" *ngIf="authService.isAuthenticated()">My Links</a>
+        <a routerLink="/">About Project</a>
+
+        <a *ngIf="!authService.isAuthenticated()" routerLink="/auth/login">Sign in</a>
+        <a *ngIf="!authService.isAuthenticated()" routerLink="/auth/register">Sign up</a>
+        <a *ngIf="authService.isAuthenticated()" (click)="logout()">Sign out</a>
+      </nav>
+    </div>
+</header>
