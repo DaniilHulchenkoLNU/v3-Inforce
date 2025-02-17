@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Token } from '../../../models/Token';
 
@@ -15,7 +16,11 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(username: string, password: string): Observable<Token> {
-    return this.http.post<Token>(`${this.apiUrl}/login`, { username, password });
+    return this.http.post<Token>(`${this.apiUrl}/login`, { username, password }).pipe(
+      tap((token: Token) => {
+        localStorage.setItem('token', token.token);
+      })
+    );
   }
 
   register(username: string, password: string): Observable<any> {
