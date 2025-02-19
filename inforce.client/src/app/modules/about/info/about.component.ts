@@ -16,7 +16,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDescription();
-    this.isAdmin = this.authService.isAdmin();
+    this.authService.isAdmin().subscribe((res) => { this.isAdmin = res });
   }
 
   loadDescription(): void {

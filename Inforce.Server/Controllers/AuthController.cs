@@ -1,6 +1,7 @@
 ﻿using Inforce.Server.Domain.DTOs;
 using Inforce.Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Inforce.Server.Controllers;
 
@@ -21,9 +22,9 @@ public class AuthController : ControllerBase
         bool isRegistered = await _authService.RegisterAsync(request.Username, request.Password);
 
         if (!isRegistered)
-            return BadRequest("Пользователь уже существует.");
+            return BadRequest("User already exists");
 
-        return Ok("Регистрация успешна!");
+        return Ok("Register success");
     }
 
     [HttpPost("login")]
@@ -31,8 +32,26 @@ public class AuthController : ControllerBase
     {
         var token = await _authService.AuthenticateAsync(request.Username, request.Password);
         if (token == null)
-            return Unauthorized("Неверный логин или пароль.");
+            return Unauthorized("Wrong login or password");
 
         return Ok(new { Token = token });
+    }
+
+    [HttpGet("isAdmin")]
+    public IActionResult IsAdmin()
+    {
+        var isAdmin = User.IsInRole("Admin");
+        return Ok(new { isAdmin });
+    }
+
+    [HttpGet("getRole")]
+    public IActionResult GetRole()
+    {
+        var role = User.FindFirstValue(ClaimTypes.Role);
+        if (role == null)
+        {
+            return Unauthorized();
+        }
+        return Ok(new { role });
     }
 }

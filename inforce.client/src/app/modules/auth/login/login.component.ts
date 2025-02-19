@@ -19,7 +19,7 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
+        //localStorage.setItem('token', res.token);
         this.router.navigate(['/urls']);
       },
       error: () => (this.errorMessage = 'Неверный логин или пароль.')
